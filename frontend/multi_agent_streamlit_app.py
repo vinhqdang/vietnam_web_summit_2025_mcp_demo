@@ -40,7 +40,7 @@ def main():
     )
     
     st.title("🤖 Multi-Agent E-commerce Analytics System")
-    st.subtitle("Comparing Traditional REST API vs Multi-Agent MCP Architecture")
+    st.subheader("Comparing Traditional REST API vs Multi-Agent MCP Architecture")
     
     # Initialize clients
     rest_client = RestAPIClient()
