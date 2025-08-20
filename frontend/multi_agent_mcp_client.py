@@ -88,7 +88,7 @@ class MultiAgentGeminiClient:
             """
             
             # Generate response using Gemini
-            response = await self.client.agenerate_content(
+            response = await self.client.aio.models.generate_content(
                 model=self.model_name,
                 contents=enhanced_prompt
             )
