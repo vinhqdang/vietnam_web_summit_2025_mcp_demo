@@ -1,8 +1,14 @@
 from sqlalchemy.orm import Session
 from sqlalchemy import func, desc
 from typing import List, Optional
-from ..database.models import User, Product, UserSession, PageView, Purchase, Review
-from . import schemas
+import sys
+import os
+
+# Add parent directory to path for imports
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
+
+from backend.database.models import User, Product, UserSession, PageView, Purchase, Review
+from backend.api import schemas
 
 def get_users(db: Session, skip: int = 0, limit: int = 100) -> List[User]:
     return db.query(User).offset(skip).limit(limit).all()

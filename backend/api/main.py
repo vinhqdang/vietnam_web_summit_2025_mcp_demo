@@ -3,10 +3,15 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from typing import List, Optional
 import uvicorn
+import sys
+import os
 
-from ..database.database import get_db, create_database
-from ..database.seed_data import create_sample_data
-from . import crud, schemas
+# Add parent directory to path for imports
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
+
+from backend.database.database import get_db, create_database
+from backend.database.seed_data import create_sample_data
+from backend.api import crud, schemas
 
 app = FastAPI(
     title="E-commerce User Behavior API",
