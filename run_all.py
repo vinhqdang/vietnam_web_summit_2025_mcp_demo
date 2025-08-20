@@ -82,7 +82,8 @@ class DemoRunner:
         process = subprocess.Popen([
             sys.executable, "-m", "streamlit", "run", "multi_agent_streamlit_app.py",
             "--server.port", "8501",
-            "--server.address", "0.0.0.0"
+            "--server.address", "0.0.0.0",
+            "--server.headless", "true"
         ], cwd=frontend_dir, env=env)
         
         self.processes.append(("Multi-Agent Frontend", process))
