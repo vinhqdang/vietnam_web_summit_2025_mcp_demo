@@ -72,20 +72,20 @@ class DemoRunner:
         return process
     
     def start_frontend(self):
-        """Start the Streamlit frontend"""
-        print("🖥️ Starting Streamlit frontend...")
+        """Start the Multi-Agent Streamlit frontend"""
+        print("🖥️ Starting Multi-Agent Streamlit frontend...")
         
         frontend_dir = self.base_dir / "frontend"
         env = os.environ.copy()
         env['PYTHONPATH'] = str(self.base_dir)
         
         process = subprocess.Popen([
-            sys.executable, "-m", "streamlit", "run", "streamlit_app.py",
+            sys.executable, "-m", "streamlit", "run", "multi_agent_streamlit_app.py",
             "--server.port", "8501",
             "--server.address", "0.0.0.0"
         ], cwd=frontend_dir, env=env)
         
-        self.processes.append(("Frontend", process))
+        self.processes.append(("Multi-Agent Frontend", process))
         return process
     
     def wait_for_services(self):
