@@ -4,7 +4,7 @@ import os
 import subprocess
 import sys
 from typing import Dict, Any, List, Optional
-import google.generativeai as genai
+import google.genai as genai
 from pathlib import Path
 
 class MultiAgentGeminiClient:
@@ -17,8 +17,8 @@ class MultiAgentGeminiClient:
         if not self.api_key:
             raise ValueError("GEMINI_API_KEY must be set")
         
-        genai.configure(api_key=self.api_key)
-        self.model = genai.GenerativeModel('gemini-2.0-flash-exp')
+        self.client = genai.Client(api_key=self.api_key)
+        self.model_name = 'gemini-2.0-flash-exp'
         self.mcp_server_path = Path(__file__).parent.parent / "backend" / "mcp_server" / "multi_agent_mcp_server.py"
         
     async def query_multi_agent(self, user_query: str, preferred_agent: str = "auto") -> str:
@@ -88,11 +88,15 @@ class MultiAgentGeminiClient:
             """
             
             # Generate response using Gemini
-            response = self.model.generate_content(enhanced_prompt)
+            response = await self.client.agenerate_content(
+                model=self.model_name,
+                contents=enhanced_prompt
+            )
             
             # Format the response to show multi-agent interaction
+            response_text = response.candidates[0].content.parts[0].text
             formatted_response = self._format_multi_agent_response(
-                response.text, routing_analysis, preferred_agent
+                response_text, routing_analysis, preferred_agent
             )
             
             return formatted_response
